@@ -33,10 +33,10 @@ def list_of_methods(request_type, list_method):
             list_method[i]
         )
         if request_type == list_method[i]["method"]:
-            if response.status_code == "200":
+            if response.status_code != "200":
                 print(f"Реальный тип запроса {request_type} и метод {list_method[i]} совпадают, но сервер отвечает ошибкой")
         else:
-            if response.status_code != "200":
+            if response.status_code == "200":
                 print(f"Тип запроса {request_type} и метод {list_method[i]} не совпадают, но сервер считает, что всё ОК")
         i += 1
 
