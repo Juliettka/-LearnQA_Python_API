@@ -1,12 +1,12 @@
 import requests
 
 response1 = requests.get("https://playground.learnqa.ru/ajax/api/compare_query_type")
-print(f"Ответ на запрос без метода:{response1.text}")
+print(f"Ответ на запрос без метода:{response1.status_code}")
 response2 = requests.head("https://playground.learnqa.ru/ajax/api/compare_query_type", data={'method': 'HEAD'})
-print(rf"Ответ на запрос с неверным методом:{response2.text}")
+print(rf"Ответ на запрос с неверным методом:{response2.status_code}")
 
 response3 = requests.get("https://playground.learnqa.ru/ajax/api/compare_query_type", params={'method': 'GET'})
-print(f"Ответ на запрос с верным методом:{response3.text}")
+print(f"Ответ на запрос с верным методом:{response3.status_code}")
 
 methods = [
     {"method": "GET"},
@@ -33,10 +33,10 @@ def list_of_methods(request_type, list_method):
             list_method[i]
         )
         if request_type == list_method[i]["method"]:
-            if response.text == "Wrong method provided":
+            if response.status_code == "200":
                 print(f"Реальный тип запроса {request_type} и метод {list_method[i]} совпадают, но сервер отвечает ошибкой")
         else:
-            if response.text != "Wrong method provided":
+            if response.status_code != "200":
                 print(f"Тип запроса {request_type} и метод {list_method[i]} не совпадают, но сервер считает, что всё ОК")
         i += 1
 
