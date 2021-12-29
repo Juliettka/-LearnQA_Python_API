@@ -1,6 +1,6 @@
+from lib.base_case import BaseCase
 from lib.my_requests import MyRequests
 from lib.assertions import Assertions
-from lib.base_case import BaseCase
 
 
 class TestUserEdit(BaseCase):
