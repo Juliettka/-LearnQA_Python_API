@@ -1,7 +1,9 @@
+import allure
 import requests
 
-
+@allure.epic("Testing headers")
 class TestHeader:
+    @allure.description("Testing value of header")
     def test_homework_header(self):
         url = "https://playground.learnqa.ru/api/homework_header"
 

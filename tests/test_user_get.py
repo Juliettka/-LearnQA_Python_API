@@ -1,9 +1,15 @@
+import allure
+
 from lib.my_requests import MyRequests
 from lib.base_case import BaseCase
 from lib.assertions import Assertions
 
 
+@allure.epic("Testing get functionality")
+@allure.feature("GET feature")
 class TestUserGet(BaseCase):
+    @allure.description("Test is trying to get data when not authorized")
+    @allure.severity(severity_level="CRITICAL")
     def test_get_user_details_not_auth(self):
         response = MyRequests.get("/user/2")
 
@@ -12,6 +18,8 @@ class TestUserGet(BaseCase):
         Assertions.assert_json_has_not_key(response, "firstName")
         Assertions.assert_json_has_not_key(response, "lastName")
 
+    @allure.description("Test is trying to get data when user is authorized")
+    @allure.severity(severity_level="CRITICAL")
     def test_get_user_details_auth_as_same_user(self):
         data = {
             'email': 'vinkotov@example.com',
@@ -33,6 +41,8 @@ class TestUserGet(BaseCase):
         expected_fields = ["username", "email", "firstName", "lastName"]
         Assertions.assert_json_has_keys(response2, expected_fields)
 
+    @allure.description("Test is trying to get data of other user when user is authorized")
+    @allure.severity(severity_level="CRITICAL")
     def test_get_other_user_details(self):
         data = {
             'email': 'vinkotov@example.com',

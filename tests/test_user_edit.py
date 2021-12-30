@@ -1,9 +1,15 @@
+import allure
+
 from lib.base_case import BaseCase
 from lib.my_requests import MyRequests
 from lib.assertions import Assertions
 
 
+@allure.epic("Testing edit functionality")
+@allure.feature("Edit feature")
 class TestUserEdit(BaseCase):
+    @allure.description("Test is trying to edit data of just created user")
+    @allure.severity(severity_level="CRITICAL")
     def test_edit_just_created_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -53,6 +59,8 @@ class TestUserEdit(BaseCase):
             "Wrong name of the user after edit"
         )
 
+    @allure.description("Test is trying to edit data when user is not authorized")
+    @allure.severity(severity_level="NORMAL")
     def test_change_data_when_not_authorized(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -75,6 +83,8 @@ class TestUserEdit(BaseCase):
 
         Assertions.assert_status_code(response3, 400)
 
+    @allure.description("Test is trying to edit other user")
+    @allure.severity(severity_level="CRITICAL")
     def test_edit_other_user_when_authorized(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -108,6 +118,8 @@ class TestUserEdit(BaseCase):
 
         Assertions.assert_status_code(response3, 400)
 
+    @allure.description("Test is trying to edit email to not valid")
+    @allure.severity(severity_level="NORMAL")
     def test_edit_user_to_not_valid_email(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -157,6 +169,8 @@ class TestUserEdit(BaseCase):
             "Email has been changed"
         )
 
+    @allure.description("Test is trying to edit firstname to too short firstname")
+    @allure.severity(severity_level="NORMAL")
     def test_edit_user_to_not_valid_firstname(self):
         # REGISTER
         register_data = self.prepare_registration_data()

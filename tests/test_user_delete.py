@@ -1,9 +1,15 @@
+import allure
+
 from lib.my_requests import MyRequests
 from lib.assertions import Assertions
 from lib.base_case import BaseCase
 
 
+@allure.epic("Testing delete functional")
+@allure.feature("Deletion")
 class TestUserDelete(BaseCase):
+    @allure.description("Test is trying to delete user with id = 2")
+    @allure.severity(severity_level="Normal")
     def test_delete_user_with_id_2(self):
         data = {
             'email': 'vinkotov@example.com',
@@ -20,6 +26,8 @@ class TestUserDelete(BaseCase):
                                       )
         Assertions.assert_status_code(response2, 400)
 
+    @allure.description("Test is trying to delete just created user")
+    @allure.severity(severity_level="CRITICAL")
     def test_delete_just_created_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
@@ -57,6 +65,8 @@ class TestUserDelete(BaseCase):
 
         Assertions.assert_status_code(response4, 404)
 
+    @allure.description("Test is trying to delete other user")
+    @allure.severity(severity_level="CRITICAL")
     def test_delete_other_user(self):
         # REGISTER
         register_data = self.prepare_registration_data()
